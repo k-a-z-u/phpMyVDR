@@ -1,0 +1,21 @@
+# created epg database
+epg.sqlite
+
+# tv icons are not commited 
+# (unknown licensing issues)
+tvicons_raw
+tvicons/*.png
+tvicons/*.dat
+
+# do not commit user's setup
+setup.php
+
+# do not commit user's plugin config
+plugins/plugins.cfg
+
+# do not commit user's channel lists
+filter/channellist/*.lst
+
+# ignore all dot folders
+.*
+

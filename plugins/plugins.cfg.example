@@ -1,0 +1,23 @@
+# example for plugins.cfg
+#
+# configure the plugins you want to use.
+# the order in this file represents the usage order
+# and can be used to e.g. arrange the plugins on the dashboard
+
+
+# what is currently up?
+UpNow
+
+# list the next three shows matching "Âhorror"
+Favorites: %horror%,3
+
+# show stats for signal strength etc.
+Femon
+
+# list version of VDR and all installed plugins
+Versions
+
+
+
+# add a status-bar containing the free disk space
+DiskFree

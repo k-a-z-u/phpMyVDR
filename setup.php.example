@@ -1,0 +1,32 @@
+// example for setup.php
+
+<?php
+
+	// which template to use
+	define('TEMPLATE_PATH', 'tpl');
+	
+	// which language to use
+	define('LANGUAGE', 'en');
+	
+	// where to store the epg sqlite
+	define ('SQLITE_EPG_FILE', './epg.sqlite');
+	
+	// where EPG data can be retrieved
+	define('EPG_FILE', '/path/to/vdrs/epg.data');
+	
+	// where records are stored
+	define('RECORDS_FOLDER', '/path/to/vdr/records/');
+	
+	// IP/port of the streamdev server
+	define('STREAMDEV_SERVER', 'http://192.168.0.1:3000/');
+
+	// IP of the vdr server
+	define('VDR_SRV_IP', '127.0.0.1');
+	
+	// port of the vdr server
+	define('VDR_SRV_PORT', 2001);
+
+	// the root URL for accessing the web interface
+	define('ROOT_URL', 'http://example.org/vdr/');
+
+?>
