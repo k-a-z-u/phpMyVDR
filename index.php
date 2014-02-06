@@ -16,6 +16,10 @@
 	// check what to create
 	$page = stripslashes( @$_GET['page'] );
 	if (!$page) {$page = "Start";}
+	// FIXME: we need a better way to do this
+	if(file_exists("./ext/tmp_vdr_epg_progress.dat") || file_exists("tmp_vdr_epg_rebuild.lock")){
+		$page = "EPGupdate";
+	}
 	
 	// FIXME: what to do with this old rss thing?
 	$scripts = '
