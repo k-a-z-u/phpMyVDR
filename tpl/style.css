@@ -142,8 +142,8 @@ input[type=button], input[type=submit] {
 .epg_timeline td:first-child	{text-align:right; padding-right:5px;}
 .epg_timeline tr:hover			{background-color:#999; border-radius:5px;}
 
-.epg_timeline_entry			{border:1px outset #BBB; border-radius:4px; display:inline-block; box-sizing:border-box; white-space: nowrap; overflow: hidden; padding:3px; font-size:10px; color:#000; background: linear-gradient(top, #FFFFFF, #DDDDDD); background: -o-linear-gradient(top, #FFFFFF, #DDDDDD); background: -moz-linear-gradient(top, #FFFFFF, #DDDDDD);}
-.epg_timeline_entry_act		{border:1px outset #BBB; border-radius:4px; display:inline-block; box-sizing:border-box; white-space: nowrap; overflow: hidden; padding:3px; font-size:10px; color:#000; background: linear-gradient(top, #AAFFAA, #88CC88); background: -o-linear-gradient(top, #AAFFAA, #88CC88); background: -moz-linear-gradient(top, #AAFFAA, #88CC88);}
+.epg_timeline_entry			{border:1px outset #BBB; border-radius:4px; display:inline-block; box-sizing:border-box; white-space: nowrap; overflow: hidden; padding:3px; font-size:10px; color:#000; background: linear-gradient(top, #FFFFFF, #DDDDDD); background: -o-linear-gradient(top, #FFFFFF, #DDDDDD); background: -moz-linear-gradient(top, #FFFFFF, #DDDDDD); background-image: -webkit-gradient(linear, left top, left bottom, from(#FFFFFF), to(#DDDDDD));}
+.epg_timeline_entry_act		{border:1px outset #BBB; border-radius:4px; display:inline-block; box-sizing:border-box; white-space: nowrap; overflow: hidden; padding:3px; font-size:10px; color:#000; background: linear-gradient(top, #AAFFAA, #88CC88); background: -o-linear-gradient(top, #AAFFAA, #88CC88); background: -moz-linear-gradient(top, #AAFFAA, #88CC88); background-image: -webkit-gradient(linear, left top, left bottom, from(#AAFFAA), to(#88CC88));}
 .epg_timeline_cur_time		{width:0px; border-left:1px solid #CCC; border-right:1px solid #444; height:100%; position:fixed;}
 
 .epg_schedule				{position:relative; }
