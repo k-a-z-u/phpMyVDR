@@ -12,7 +12,7 @@ The format of this file is as follows:
 The logo "arte.png" is applied to all channels named "arte". The logo
 "arte hd.png" to all channels named "arte hd". Finally, "nickelodeon.png"
 is used for both, "nick/comedy" and "nick/comedy central". The case
-of the channel name is ignored by using a lowercase characters here.
+of the channel name is ignored by using lowercase characters here.
 
 
 Note:
