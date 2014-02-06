@@ -16,7 +16,7 @@
 		public static function getProgressBar($value, $class, $text='&nbsp;', $title='') {
 			if (empty($text)) {$text = '&nbsp;';}
 			$tpl  = '<div class="'.$class.'" title="'.$title.'">';
-			$tpl .= '<div class="'.$class.'_bar" style="width:'.$value.'%;">'.$text.'</div>';
+			$tpl .= '<div class="progressbar_bar '.$class.'_bar" style="width:'.$value.'%;">'.$text.'</div>';
 			$tpl .= '</div>';
 			return $tpl;
 		}
