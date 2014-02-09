@@ -23,4 +23,4 @@
 	</div>
 </div>
 	
-<script>EPGupdate.initialize()</script>
+<script type="text/javascript">EPGupdate.initialize()</script>

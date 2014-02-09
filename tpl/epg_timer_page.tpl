@@ -4,7 +4,7 @@
 	<div class="footer"></div>
 </div>
 
-<script>
+<script type="text/javascript">
 	var tl = new Timeline();
 	tl.setSize(900, 0);
 	tl.setDisplayTime(1);

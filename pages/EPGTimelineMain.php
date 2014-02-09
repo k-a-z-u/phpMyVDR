@@ -1,7 +1,11 @@
 <?php
 	
 	/**
-	 * the page to display an EPG-timeline
+	 * the page to display the complete (EPG)-timeline
+	 * for the next few hours of several channels.
+	 * 
+	 * TODO: make starting-time selectable (e.g. show starting from 20:15)
+	 * 
 	 */
 	class EPGTimelineMain implements Content {
 	
@@ -46,6 +50,7 @@
 			$ret = '';
 			$curChannel = null;
 			$curSumTs = 0;
+			$percentError = 0;
 			$startTime = time() - $this->pastTime;
 			
 			// add all entries
@@ -58,30 +63,36 @@
 				$title = HTML::getSafe($entry->getTitle());
 				$isRunning = $startTs <= time() && $endTs > time();
 								
-				// new channel?
+				// does this entry belong to a new channel? -> start over with next row
 				if ($chan != $curChannel && $curChannel != null) {
 					$this->attachChannel($curChannel);
 					$curSumTs = 0;
+					$percentError = 0;
 				}
 				$curChannel = $chan;
 				
 				
-				// calculate the width
+				// duration of the entry to add
 				$dispTs = $entry->getEvent()->getDuration();
+				
+				// check some special cases
 				if ($startTs < $startTime) {$dispTs -= $startTime - $startTs;}								// entry started before the displayed start-time
 				if ($curSumTs + $dispTs > $this->totalTime) {$dispTs = $this->totalTime - $curSumTs;}		// cut if show goes past totalTime
 				if ($dispTs <= 0) {continue;}
-				$percent = round($dispTs * 100 / ($this->totalTime + 150), 2);
+				
+				// calculate width in percent
+				$percent = $dispTs / $this->totalTime;
+				$p0 = ($percent * 98) + $percentError;
+				$p1 = round($p0, 1);
+				$percentError += ($p0 - $p1);
 				
 				// add to sum
 				$curSumTs += $dispTs;
 				
-				// append
+				// append entry to current row
 				$infoBox = $entry->getInfoBox();
-				//$this->curData .= "<div class='epg_timeline_entry' title='{$infoBox}' style='width:{$percent}%'>{$title}</div>";
-				$width = $this->pixel * $percent / 100;
 				$class = ($isRunning) ? ('epg_timeline_entry_act') : ('epg_timeline_entry');
-				$this->curData .= '<div class="'.$class.'" title="'.$infoBox.'" style="width:'.$width.'px;">'.$title.'</div>';
+				$this->curData .= '<div class="'.$class.'" title="'.$infoBox.'" style="width:'.$p1.'%;">'.$title.'</div>';
 				
 			}
 			

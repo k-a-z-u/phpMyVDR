@@ -73,12 +73,12 @@ input[type=button], input[type=submit] {
 #menu_title				{font-style:italic; font-weight:bold;}
 #menu_footer			{}
 #menu_content			{padding:0px;}
-#menu  .menuEntryActive	{background: linear-gradient(top, #DDD, #999); background: -o-linear-gradient(top, #DDD, #999); background: -moz-linear-gradient(top, #DDD, #999); color:#000;}
+#menu  .menuEntryActive	{background: linear-gradient(to bottom, #DDD, #999); background: -o-linear-gradient(top, #DDD, #999); background: -moz-linear-gradient(top, #DDD, #999); color:#000;}
 #menu a, #menu a:hover, #menu .menuEntry, #menu .menuSub {
 	border:1px outset #666;
 	border-left: none;
 	border-right: none;
-	background: linear-gradient(top, #888, #444);
+	background: linear-gradient(to bottom, #888, #444);
 	background: -o-linear-gradient(top, #888, #444);
 	background: -moz-linear-gradient(top, #888, #444);
 	display:block;
@@ -88,14 +88,14 @@ input[type=button], input[type=submit] {
 	text-decoration:none;
 }
 #menu .menuSub {
-	background: linear-gradient(top, #AAFFAA, #88CC88);
+	background: linear-gradient(to bottom, #AAFFAA, #88CC88);
 	background: -o-linear-gradient(top, #AAFFAA, #88CC88);
 	background: -moz-linear-gradient(top, #AAFFAA, #88CC88);
 	padding: 2px 2px;
 	color:#000;
 	font-size:10px;
 }
-#menu a:hover	{background: linear-gradient(top, #AAA, #666); background: -o-linear-gradient(top, #AAA, #666); background: -moz-linear-gradient(top, #AAA, #666);}
+#menu a:hover	{background: linear-gradient(to bottom, #AAA, #666); background: -o-linear-gradient(top, #AAA, #666); background: -moz-linear-gradient(top, #AAA, #666);}
 #menu img		{float:left; margin-right:5px; margin-top:-1px;}
 
 #menu input		{width:149px;}
@@ -135,23 +135,25 @@ input[type=button], input[type=submit] {
 
 .epg_timers_tbl				{border-collapse : collapse;}
 .epg_timers_tbl th			{padding:5px; border-bottom:1px solid #CCC; background-color:#AAA;}
-.epg_timers_tbl td			{padding:5px; bborder-bottom:1px solid #999;}
+.epg_timers_tbl td			{padding:5px;}
 .epg_timers_tbl tr:hover	{background-color:#999;}
 
 
+.epg_timeline th				{color: #fff;}
+.epg_timeline th:first-child	{text-align:right;}
 .epg_timeline td:first-child	{text-align:right; padding-right:5px;}
 .epg_timeline tr:hover			{background-color:#999; border-radius:5px;}
 
-.epg_timeline_entry			{border:1px outset #BBB; border-radius:4px; display:inline-block; box-sizing:border-box; white-space: nowrap; overflow: hidden; padding:3px; font-size:10px; color:#000; background: linear-gradient(top, #FFFFFF, #DDDDDD); background: -o-linear-gradient(top, #FFFFFF, #DDDDDD); background: -moz-linear-gradient(top, #FFFFFF, #DDDDDD); background-image: -webkit-gradient(linear, left top, left bottom, from(#FFFFFF), to(#DDDDDD));}
-.epg_timeline_entry_act		{border:1px outset #BBB; border-radius:4px; display:inline-block; box-sizing:border-box; white-space: nowrap; overflow: hidden; padding:3px; font-size:10px; color:#000; background: linear-gradient(top, #AAFFAA, #88CC88); background: -o-linear-gradient(top, #AAFFAA, #88CC88); background: -moz-linear-gradient(top, #AAFFAA, #88CC88); background-image: -webkit-gradient(linear, left top, left bottom, from(#AAFFAA), to(#88CC88));}
+.epg_timeline_entry			{border:1px outset #BBB; border-radius:4px; display:inline-block; box-sizing:border-box; -moz-box-sizing:border-box; white-space: nowrap; overflow: hidden; padding:3px; font-size:10px; color:#000; background: linear-gradient(to bottom, #FFFFFF, #DDDDDD); background: -o-linear-gradient(top, #FFFFFF, #DDDDDD); background: -moz-linear-gradient(top, #FFFFFF, #DDDDDD); background-image: -webkit-gradient(linear, left top, left bottom, from(#FFFFFF), to(#DDDDDD));}
+.epg_timeline_entry_act		{border:1px outset #BBB; border-radius:4px; display:inline-block; box-sizing:border-box; -moz-box-sizing:border-box; white-space: nowrap; overflow: hidden; padding:3px; font-size:10px; color:#000; background: linear-gradient(to bottom, #AAFFAA, #88CC88); background: -o-linear-gradient(top, #AAFFAA, #88CC88); background: -moz-linear-gradient(top, #AAFFAA, #88CC88); background-image: -webkit-gradient(linear, left top, left bottom, from(#AAFFAA), to(#88CC88));}
 .epg_timeline_cur_time		{width:0px; border-left:1px solid #CCC; border-right:1px solid #444; height:100%; position:fixed;}
 
 .epg_schedule				{position:relative; }
-.epg_schedule_channel		{position:absolute; box-sizing:border-box; width:100%; padding-top:5px; padding-bottom:7px; background: linear-gradient(top, #EEE, #CCC); background: -o-linear-gradient(top, #EEE, #CCC); background: -moz-linear-gradient(top, #EEE, #CCC); color:#000; font-style:italic; padding-left:5px;}
+.epg_schedule_channel		{position:absolute; box-sizing:border-box; -moz-box-sizing:border-box; width:100%; padding-top:5px; padding-bottom:7px; background: linear-gradient(to bottom, #EEE, #CCC); background: -o-linear-gradient(top, #EEE, #CCC); background: -moz-linear-gradient(top, #EEE, #CCC); color:#000; font-style:italic; padding-left:5px;}
 .epg_schedule_channels		{position:absolute; display:block; width:100%;}
 .epg_schedule_entries		{position:relative; display:block; overflow-x:scroll;}
-.epg_schedule_slot_day		{position:absolute; border:1px outset #666; box-sizing:border-box; background: -o-linear-gradient(top, #888, #444); height:15px; font-size:10px; text-align:center; color:#FFF; top:0px;}
-.epg_schedule_slot_hour		{position:absolute; border:1px outset #666; box-sizing:border-box; background: -o-linear-gradient(top, #EEE, #CCC); height:15px; font-size:10px; text-align:center; color:#000; top:16px;}
+.epg_schedule_slot_day		{position:absolute; border:1px outset #666; box-sizing:border-box; -moz-box-sizing:border-box; background: -o-linear-gradient(top, #888, #444); height:15px; font-size:10px; text-align:center; color:#FFF; top:0px;}
+.epg_schedule_slot_hour		{position:absolute; border:1px outset #666; box-sizing:border-box; -moz-box-sizing:border-box; background: -o-linear-gradient(top, #EEE, #CCC); height:15px; font-size:10px; text-align:center; color:#000; top:16px;}
 .epg_schedule_entry			{position:absolute; padding:1px; border:1px outset #666; background-color:#fff; color:#333; font-size:10px; white-space: nowrap; overflow: hidden; box-shadow:1px 1px 3px #444; border-radius:5px;}
 .conflicts					{background-color:#FF0000;}
 .recording					{background-color:#FFCCCC; text-decoration:blink;}
@@ -160,30 +162,30 @@ input[type=button], input[type=submit] {
 
 .channels_tbl			{border-collapse : collapse;}
 .channels_tbl th		{padding:5px; border-bottom:1px solid #CCC; background-color:#AAA; text-align:left;}
-.channels_tbl td		{padding:5px; bborder-bottom:1px solid #999;}
+.channels_tbl td		{padding:5px;}
 .channels_tbl tr:hover	{background-color:#999;}
 
 
 
 /** ------------------------------ PROGRESS BARS ------------------------------ */
 
-.progressbar_bar		{background: linear-gradient(top, #CCCCFF, #6666AA); background: -o-linear-gradient(top, #CCCCFF, #6666AA); background: -moz-linear-gradient(top, #CCCCFF, #6666AA); background-image: -webkit-gradient(linear, left top, left bottom, from(#CCCCFF), to(#6666AA));}
+.progressbar_bar		{display:inline-block; background: linear-gradient(to bottom, #CCCCFF, #6666AA); background: -o-linear-gradient(top, #CCCCFF, #6666AA); background: -moz-linear-gradient(top, #CCCCFF, #6666AA); background: -webkit-gradient(linear, left top, left bottom, from(#CCCCFF), to(#6666AA));}
 
-.bar0					{height:5px; width:74px; border:1px inset #333;}
-.bar0_bar				{height:5px; background: linear-gradient(top, #CCCCFF, #6666AA); background: -o-linear-gradient(top, #CCCCFF, #6666AA); background: -moz-linear-gradient(top, #CCCCFF, #6666AA); background-image: -webkit-gradient(linear, left top, left bottom, from(#CCCCFF), to(#6666AA));}
+.bar0					{height:5px; display:inline-block; width:74px; border:1px inset #333;}
+.bar0_bar				{height:5px; display:inline-block; background: linear-gradient(to bottom, #CCCCFF, #6666AA); background: -o-linear-gradient(top, #CCCCFF, #6666AA); background: -moz-linear-gradient(top, #CCCCFF, #6666AA); background: -webkit-gradient(linear, left top, left bottom, from(#CCCCFF), to(#6666AA));}
 
-.bar1					{box-sizing:border-box; border-radius:9px; width:200px; height:20px; border:1px inset #333; display:inline-block;}
-.bar1_bar				{box-sizing:border-box; border-radius:9px; padding:0px; height:18px; border:1px outset #CCCCFF; text-align:center; text-shadow:1px 1px 2px #000;}
+.bar1					{box-sizing:border-box; -moz-box-sizing:border-box; border-radius:9px; width:200px; height:20px; border:1px inset #333; display:inline-block;}
+.bar1_bar				{box-sizing:border-box; -moz-box-sizing:border-box; border-radius:9px; padding:0px; height:18px; border:1px outset #CCCCFF; text-align:center; text-shadow:1px 1px 2px #000;}
 
-.barDiskFree			{box-sizing:border-box; border-radius:9px; width:200px; height:16px; border:1px inset #333; display:inline-block;}
-.barDiskFree_bar		{box-sizing:border-box; border-radius:9px; padding:0px; height:14px; font-size:10px; border:1px outset #CCCCFF; text-align:center; text-shadow:1px 1px 2px #000;}
+.barDiskFree			{box-sizing:border-box; -moz-box-sizing:border-box; border-radius:9px; width:200px; height:16px; border:1px inset #333; display:inline-block;}
+.barDiskFree_bar		{box-sizing:border-box; -moz-box-sizing:border-box; border-radius:9px; padding:0px; height:14px; font-size:10px; border:1px outset #CCCCFF; text-align:center; text-shadow:1px 1px 2px #000;}
 
 .code					{white-space: pre; font-family:courier new; margin:1px;}
 
 
 
 /** ------------------------------ TOOLTIP ------------------------------ */
-.tooltip				{position:absolute; border:1px outset #666; background-color:#FFFFFF; padding:3px; border-radius:5px; background: linear-gradient(top, #DDDDFF, #8888BB); background: -o-linear-gradient(top, #DDDDFF, #8888BB); background: -moz-linear-gradient(top, #DDDDFF, #8888BB); box-shadow: 1px 1px 5px #444; max-width:450px;}
+.tooltip				{position:absolute; border:1px outset #666; background-color:#FFFFFF; padding:3px; border-radius:5px; background: linear-gradient(to bottom, #DDDDFF, #8888BB); background: -o-linear-gradient(top, #DDDDFF, #8888BB); background: -moz-linear-gradient(top, #DDDDFF, #8888BB); box-shadow: 1px 1px 5px #444; max-width:450px;}
 
 
 /** ------------------------------ DASHBOARD ------------------------------ */

@@ -14,7 +14,7 @@
 			// construct dashboard-tiles
 			$ret = '';
 			foreach ($entries as $entry) {
-				$ret .= $entry;				
+				$ret .= $entry;
 			}
 			
 			// construct dashaboard
