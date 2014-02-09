@@ -22,8 +22,9 @@
 		
 		/** open */
 		public function __construct($file) {
-			$this->db = new SQLite3($file);
+			$this->db = new SQLite3($file, SQLITE3_OPEN_READWRITE | SQLITE3_OPEN_CREATE);
 			$this->createIfNeeded();
+			$this->prepareStatements();
 		}
 	
 		/** cleanup on destruction */
@@ -33,9 +34,7 @@
 		
 		/** close the database */
 		public function close() {
-			$this->stmtAddShow->close();
-			$this->stmtAddChannel->close();
-			$this->stmtGetChannelByCode->close();
+			$this->unprepareStatements();
 			$this->db->close();
 		}
 		
@@ -44,7 +43,13 @@
 			
 			// config
 			$this->db->exec('PRAGMA synchronous=OFF;');
-			$this->db->exec('PRAGMA journal_mode=OFF;');
+			$this->db->exec('PRAGMA journal_mode=MEMORY;');
+			
+			// this prevents the long insert transaction (EPG-Scan) from flushing
+			// data to the DB during transaction, creating an EXCLUSIVE lock!
+			// An alternative would be to perform the epg-update into a new (empty) database
+			// and overwriting the real-one after completion.
+			$this->db->exec('PRAGMA cache_spill=OFF;');
 			
 			// create show-table
 			$this->db->exec("
@@ -68,15 +73,42 @@
 					code STRING NOT NULL
 				);");
 			
-			// creat indexes
-			//$this->db->exec('CREATE INDEX IF NOT EXISTS idx_show_channel_name ON show (channelName);');
+			// create indexes
 			$this->db->exec('CREATE INDEX IF NOT EXISTS idx_show_event_time ON show (eventTsStart, eventDuration);');
 			$this->db->exec('CREATE INDEX IF NOT EXISTS idx_show_channel_event_time ON show (channelIdx, eventTsStart, eventDuration);');
-			//$this->db->exec('CREATE UNIQUE INDEX IF NOT EXISTS idx_unique ON show (channelIdx, eventTsStart)');
 			
 			$this->db->exec('CREATE INDEX IF NOT EXISTS idx_channel_name ON channel (name);');
 			$this->db->exec('CREATE INDEX IF NOT EXISTS idx_channel_code ON channel (code);');
 			
+		}
+		
+		/**
+		 * clean-up all prepared statements
+		 */
+		private function unprepareStatements() {
+			
+			$this->stmtAddShow->close();
+			$this->stmtAddChannel->close();
+			$this->stmtGetChannelByCode->close();
+			$this->stmtGetChannelByIndex->close();
+			$this->stmtGetAllChannels->close();
+			
+			$this->stmtGetEntryById->close();
+			$this->stmtGetEntryById->close();
+			$this->stmtGetEntriesByTS->close();
+			$this->stmtGetEntriesByTSNext->close();
+			$this->stmtGetEntriesByTSBetween->close();
+			$this->stmtGetEntriesBySearch->close();
+			$this->stmtGetEntriesByChannel->close();
+			
+		}
+		
+		/**
+		 * create all prepared statements.
+		 * when starting a transaction, those have to be re-created!!
+		 */
+		private function prepareStatements() {
+		
 			$this->stmtAddShow = $this->db->prepare('INSERT OR IGNORE INTO show (channelIdx, eventID, eventTsStart, eventDuration, title, descShort, descLong, genre) VALUES (  (SELECT idx FROM channel WHERE code = ?), ?,?,?,?,?,?,?)');
 			$this->stmtAddChannel = $this->db->prepare('INSERT OR IGNORE INTO channel (idx, name, code) VALUES (?,?,?)');
 			$this->stmtGetChannelByCode = $this->db->prepare('SELECT name, code, idx FROM channel WHERE code = ?');
@@ -89,18 +121,20 @@
 			$this->stmtGetEntriesByTSBetween = $this->db->prepare('SELECT s.*, c.name AS channelName, c.code AS channelCode FROM show s LEFT JOIN channel c ON c.idx = s.channelIdx WHERE (eventTsStart + eventDuration > ?) AND (eventTsStart < ?) ');
 			$this->stmtGetEntriesBySearch = $this->db->prepare('SELECT s.*, c.name AS channelName, c.code AS channelCode FROM show s LEFT JOIN channel c ON c.idx = s.channelIdx WHERE (title LIKE :txt OR descLong LIKE :txt) AND (eventTsStart+eventDuration) > :ts');
 			$this->stmtGetEntriesByChannel = $this->db->prepare('SELECT s.*, c.name AS channelName, c.code AS channelCode FROM show s LEFT JOIN channel c ON c.idx = s.channelIdx WHERE (s.channelIdx = ?) AND ((eventTsStart+eventDuration) > ?) LIMIT 100');
-			
 		
 		}
 		
+		
+		
 		/** delete everything from DB */
 		public function clear() {
-			$this->db->exec("DELETE FROM channel;");
-			$this->db->exec("DELETE FROM show;");
+			$this->db->exec('DELETE FROM channel;');
+			$this->db->exec('DELETE FROM show;');
 		}
 		
 		/** add a new show to the database */
 		public function addEpgEntry(VdrEpgEntry $entry) {
+			
 			$cCode = $entry->getChannel()->getCode();
 			$cName = $entry->getChannel()->getName();
 			$eID = $entry->getEvent()->getID();
@@ -110,8 +144,8 @@
 			$descS = $entry->getDescShort();
 			$descL = $entry->getDescLong();
 			$genre = $entry->getGenre()->getCode();
+			
 			$this->stmtAddShow->bindParam(1, $cCode, SQLITE3_TEXT);
-			//$this->stmtAddShow->bindParam(2, $cName, SQLITE3_TEXT);
 			$this->stmtAddShow->bindParam(2, $eID, SQLITE3_INTEGER);
 			$this->stmtAddShow->bindParam(3, $eTsStart, SQLITE3_INTEGER);
 			$this->stmtAddShow->bindParam(4, $eDuration, SQLITE3_INTEGER);
@@ -119,7 +153,9 @@
 			$this->stmtAddShow->bindParam(6, $descS, SQLITE3_TEXT);
 			$this->stmtAddShow->bindParam(7, $descL, SQLITE3_TEXT);
 			$this->stmtAddShow->bindParam(8, $genre, SQLITE3_INTEGER);
+			
 			$this->stmtAddShow->execute();
+		
 		}
 		
 		/** get an EPG-Entry by the given id */
@@ -147,13 +183,20 @@
 		 */
 		public function deleteChannelAndUpdate($index) {
 			$index = intval($index);
-			$sql  = "BEGIN TRANSACTION;";
+			$sql  = 'BEGIN TRANSACTION;';
 			$sql .= "DELETE FROM channel WHERE idx = {$index};";
 			$sql .= "DELETE FROM show WHERE channelIdx = {$index};";
 			$sql .= "UPDATE channel SET idx = idx - 1 WHERE idx > {$index};";
 			$sql .= "UPDATE show SET channelIdx = channelIdx - 1 WHERE channelIdx > {$index};";
-			$sql .= "COMMIT;";
+			$sql .= 'COMMIT TRANSACTION;';
 			$this->db->exec($sql);
+		}
+		
+		public function beginTransaction() {
+			$this->db->exec('BEGIN TRANSACTION');
+		}
+		public function endTransaction() {
+			$this->db->exec('COMMIT TRANSACTION');
 		}
 		
 		/** get channel by code "SIGNALQUELLE-NID-TID-SID" */

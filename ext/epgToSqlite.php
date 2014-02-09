@@ -73,12 +73,13 @@
 			
 			
 			// clear databse
+			$db->beginTransaction();
 			$db->clear();
 			
 			// add all channels
 			foreach ($chan->getAll() as $channel) {
 				$db->addChannel($channel);
-			}			
+			}
 			
 			// get all EPG entries
 			$cnt = 0;
@@ -96,7 +97,10 @@
 			
 			// remove old shows and cleanup
 			$db->removeOldEpgEntries();
+			$db->endTransaction();
 			$db->close();
+			
+			
 		
 			// set done
 			$this->setProgress(100);
