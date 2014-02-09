@@ -17,8 +17,10 @@
 			$box = "";
 			$tpl = new Template('plug_upnow_entry');
 			$db = Factory::getSqlite();
-			$req = array('search_time' => 'now', 'sort_by' => 'chan_name');
-			$res = VdrEpgRequestFactory::get($db, $req);
+			$params = new VdrEpgRequestFactoryParams();
+			$params->sortBy( VdrEpgRequestFactory::SORT_BY_CHAN_NAME );
+			$params->setSearchTime( VdrEpgRequestFactoryParams::SEARCH_TIME_NOW );
+			$res = VdrEpgRequestFactory::getByParams($db, $params);
 			
 			foreach ($res as $entry) {
 				

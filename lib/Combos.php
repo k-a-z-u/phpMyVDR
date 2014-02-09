@@ -5,18 +5,18 @@
 		/** get the EPG-sort combo */
 		public static function getEpgSort($id, $selected) {
 			$keyVal = array();
-			$keyVal['day_and_chan_name'] = LANG_EPG_OPTS_SORT_BY_DAY_AND_CHANNEL;
-			$keyVal['chan_name'] = LANG_EPG_OPTS_SORT_BY_CHANNEL;
-			$keyVal['time'] = LANG_EPG_OPTS_SORT_BY_TIME;
-			$keyVal['duration'] = LANG_EPG_OPTS_SORT_BY_DURATION;
+			$keyVal[VdrEpgRequestFactory::SORT_BY_DAY_AND_CHAN_NAME] = LANG_EPG_OPTS_SORT_BY_DAY_AND_CHANNEL;
+			$keyVal[VdrEpgRequestFactory::SORT_BY_CHAN_NAME] = LANG_EPG_OPTS_SORT_BY_CHANNEL;
+			$keyVal[VdrEpgRequestFactory::SORT_BY_TIME] = LANG_EPG_OPTS_SORT_BY_TIME;
+			$keyVal[VdrEpgRequestFactory::SORT_BY_DURATION] = LANG_EPG_OPTS_SORT_BY_DURATION;
 			return HTML::getCombo($keyVal, $id, $selected);
 		}
 		
 		/** get the EPG-time combo */
 		public static function getEpgTime($id, $selected) {
 			$keyVal = array();
-			$keyVal['now'] = LANG_EPG_OPTS_TIME_NOW;
-			$keyVal['next'] = LANG_EPG_OPTS_TIME_NEXT;
+			$keyVal[VdrEpgRequestFactoryParams::SEARCH_TIME_NOW] = LANG_EPG_OPTS_TIME_NOW;
+			$keyVal[VdrEpgRequestFactoryParams::SEARCH_TIME_NEXT] = LANG_EPG_OPTS_TIME_NEXT;
 			$keyVal['2015'] = LANG_EPG_OPTS_TIME_2015;
 			$keyVal['2200'] = LANG_EPG_OPTS_TIME_2200;
 			return HTML::getCombo($keyVal, $id, $selected);

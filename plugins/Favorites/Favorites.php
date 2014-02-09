@@ -22,8 +22,11 @@
 			// fetch from database
 			$content = '';
 			$db = Factory::getSqlite();
-			$req = array('search_text' => $this->filter, 'sort_by' => 'timee');
-			$res = VdrEpgRequestFactory::get($db, $req);
+			
+			$params = new VdrEpgRequestFactoryParams();
+			$params->setSearchString($this->filter);
+			$params->sortBy(VdrEpgRequestFactory::SORT_BY_TIME);
+			$res = VdrEpgRequestFactory::getByParams($db, $params);
 			
 			// list all entries (within limit);
 			$cnt = 0;

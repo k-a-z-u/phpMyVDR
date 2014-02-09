@@ -38,11 +38,11 @@
 			
 			// get entries
 			$db = new VdrEpgSqlite(SQLITE_EPG_FILE);
-			$data = array();
-			$data['search_time'] = time() - $this->pastTime;
-			$data['search_duration'] = $this->totalTime;
-			$data['sort_by'] = 'chan_name';
-			$entries = VdrEpgRequestFactory::get($db, $data);
+			$params = new VdrEpgRequestFactoryParams();
+			$params->setSearchTime( time() - $this->pastTime );
+			$params->setSearchDuration( $this->totalTime );
+			$params->sortBy( VdrEpgRequestFactory::SORT_BY_CHAN_NAME );
+			$entries = VdrEpgRequestFactory::getByParams($db, $params);
 			
 			
 			// map each entry to the template 
