@@ -130,7 +130,10 @@
 			} else if ($start <= time()) {
 				// currently running?
 				$running = intval((time() - $start) / 60);
-				$percent = intval($running * 100 / $duration);
+				$percent = 0;
+				if ($duration) {
+					$percent = intval($running * 100 / $duration);
+				}
 				$infoBox .= '&#13;' . LANG_TIMELINE_RUNNING_SINCE . ': ' . $running . ' ' . LANG_DATE_MINUTES . ' (' . $percent . '%)';
 				
 			} else {

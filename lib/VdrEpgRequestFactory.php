@@ -87,9 +87,9 @@
 			// get possible parameters
 			$params = new VdrEpgRequestFactoryParams();
 			if (@$attrs['search_time'])		{$params->setSearchTime( $attrs['search_time'] );}
-			if (@$attrs['search_text'])		{$params->setSearchString( $attrs['search_text'] );}
 			if (@$attrs['by_channel'])		{$params->setSearchChannel( $attrs['by_channel'] );}
 			if (@$attrs['search_duration'])	{$params->setSearchDuration( $attrs['search_duration'] );}
+			if (@$attrs['search_text'])		{$params->setSearchString( $attrs['search_text'] );}
 			if (@$attrs['channelfilter'])	{$params->setChannelFilterList( $attrs['channelfilter'] );}
 			if (@$attrs['sort_by'])			{$params->sortBy( $attrs['sort_by'] );}
 			

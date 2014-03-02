@@ -43,11 +43,12 @@ class VdrEpgRequestFactoryParams {
 	 */
 	public function getSearchStr() {
 		if (empty($this->searchStr)) {return null;}
-		$firstChar = $this->searchStr[0];
-		$lastChar = $this->searchStr[strlen($this->searchStr) - 1];
-		$searchStr = ($firstChar != '^')	? ('%' . $this->searchStr) : (substr($this->searchStr, 1));
-		$searchStr = ($lastChar != '$')		? ($this->searchStr . '%') : (substr($this->searchStr, 0, strlen($this->searchStr) - 1));
-		return $this->searchStr;
+		$searchStr = $this->searchStr;
+		$firstChar = $searchStr[0];
+		$lastChar = $searchStr[strlen($searchStr) - 1];
+		$searchStr = ($firstChar != '^')	? ('%' . $searchStr) : (substr($searchStr, 1));
+		$searchStr = ($lastChar != '$')		? ($searchStr . '%') : (substr($searchStr, 0, strlen($searchStr) - 1));
+		return $searchStr;
 	}
 	
 	/** what is the searching base? a string? a channel? etc.. */
