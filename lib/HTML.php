@@ -15,7 +15,7 @@
 		/** get a progress-bar */
 		public static function getProgressBar($value, $class, $text='&nbsp;', $title='') {
 			if (empty($text)) {$text = '&nbsp;';}
-			$tpl  = '<span class="'.$class.'" title="'.$title.'">';
+			$tpl  = '<span class="progressbar '.$class.'" title="'.$title.'">';
 			$tpl .= '<span class="progressbar_bar '.$class.'_bar" style="width:'.$value.'%;">'.$text.'</span>';
 			$tpl .= '</span>';
 			return $tpl;

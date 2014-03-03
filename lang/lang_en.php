@@ -32,13 +32,13 @@
 	/* menu */
 	define('LANG_MENU_HEADER', 'MENU');
 	define('LANG_MENU_START', 'Startpage');
-	define('LANG_MENU_EPG_NOW', 'Currently running');
+	define('LANG_MENU_EPG_NOW', 'On Air');
 	define('LANG_MENU_EPG_BY_PROGRAM', 'By Program');
 	define('LANG_MENU_EPG_TIMELINE', 'Timeline');
 	define('LANG_MENU_EPG_UPDATE', 'EPG-Update');
 	define('LANG_MENU_TIMER', 'Timer');
 	define('LANG_MENU_CHANNELS', 'Channels');
-	define('LANG_MENU_SVDRP', 'SVDRP Commands');
+	define('LANG_MENU_SVDRP', 'SVDRP');
 	define('LANG_MENU_RSS', 'RSS');
 	
 	/* rss */

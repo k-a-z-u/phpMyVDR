@@ -73,14 +73,13 @@ input[type=button], input[type=submit] {
 #menu_title				{font-style:italic; font-weight:bold;}
 #menu_footer			{}
 #menu_content			{padding:0px;}
-#menu  .menuEntryActive	{background: linear-gradient(to bottom, #DDD, #999); background: -o-linear-gradient(top, #DDD, #999); background: -moz-linear-gradient(top, #DDD, #999); color:#000;}
-#menu a, #menu a:hover, #menu .menuEntry, #menu .menuSub {
-	border:1px outset #666;
+#menu  .menuEntryActive	{background: rgba(255,255,255,0.15); font-weight: bold;}
+#menu a, #menu a:hover, #menu .menuSub {
+	border:1px solid;
 	border-left: none;
 	border-right: none;
-	background: linear-gradient(to bottom, #888, #444);
-	background: -o-linear-gradient(top, #888, #444);
-	background: -moz-linear-gradient(top, #888, #444);
+	border-top-color: rgba(255,255,255,0.25);
+	border-bottom-color: rgba(0,0,0,0.3);
 	display:block;
 	padding:5px;
 	padding-left:8px;
@@ -95,7 +94,7 @@ input[type=button], input[type=submit] {
 	color:#000;
 	font-size:10px;
 }
-#menu a:hover	{background: linear-gradient(to bottom, #AAA, #666); background: -o-linear-gradient(top, #AAA, #666); background: -moz-linear-gradient(top, #AAA, #666);}
+#menu a:hover	{background: rgba(255,255,255,0.15);}
 #menu img		{float:left; margin-right:5px; margin-top:-1px;}
 
 #menu input		{width:149px;}
@@ -169,15 +168,16 @@ input[type=button], input[type=submit] {
 
 /** ------------------------------ PROGRESS BARS ------------------------------ */
 
+.progressbar			{border: 1px solid; border-left-color: rgba(0,0,0,0.3);border-top-color: rgba(0,0,0,0.3);border-bottom-color: rgba(255,255,255,0.25);border-right-color: rgba(255,255,255,0.25);}
 .progressbar_bar		{display:inline-block; background: linear-gradient(to bottom, #CCCCFF, #6666AA); background: -o-linear-gradient(top, #CCCCFF, #6666AA); background: -moz-linear-gradient(top, #CCCCFF, #6666AA); background: -webkit-gradient(linear, left top, left bottom, from(#CCCCFF), to(#6666AA));}
 
-.bar0					{height:5px; display:inline-block; width:74px; border:1px inset #333;}
+.bar0					{height:5px; display:inline-block; width:74px;}
 .bar0_bar				{height:5px; display:inline-block; background: linear-gradient(to bottom, #CCCCFF, #6666AA); background: -o-linear-gradient(top, #CCCCFF, #6666AA); background: -moz-linear-gradient(top, #CCCCFF, #6666AA); background: -webkit-gradient(linear, left top, left bottom, from(#CCCCFF), to(#6666AA));}
 
-.bar1					{box-sizing:border-box; -moz-box-sizing:border-box; border-radius:9px; width:200px; height:20px; border:1px inset #333; display:inline-block;}
+.bar1					{box-sizing:border-box; -moz-box-sizing:border-box; border-radius:9px; width:200px; height:20px; display:inline-block;}
 .bar1_bar				{box-sizing:border-box; -moz-box-sizing:border-box; border-radius:9px; padding:0px; height:18px; border:1px outset #CCCCFF; text-align:center; text-shadow:1px 1px 2px #000;}
 
-.barDiskFree			{box-sizing:border-box; -moz-box-sizing:border-box; border-radius:9px; width:200px; height:16px; border:1px inset #333; display:inline-block;}
+.barDiskFree			{box-sizing:border-box; -moz-box-sizing:border-box; border-radius:9px; width:200px; height:16px; display:inline-block;}
 .barDiskFree_bar		{box-sizing:border-box; -moz-box-sizing:border-box; border-radius:9px; padding:0px; height:14px; font-size:10px; border:1px outset #CCCCFF; text-align:center; text-shadow:1px 1px 2px #000;}
 
 .code					{white-space: pre; font-family:courier new; margin:1px;}

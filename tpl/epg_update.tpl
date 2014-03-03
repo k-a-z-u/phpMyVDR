@@ -7,7 +7,7 @@
 				<td><b>{*LANG_EPG_UPDATE_STATUS}</b>:</td>
 				<td>
 					<div id="epg_update_status_not_running">{*LANG_EPG_UPDATE_STATUS_NOT_RUNNING}</div>
-					<div id="epg_update_bar" class="bar1" style="width:290px;">
+					<div id="epg_update_bar" class="progressbar bar1" style="width:290px;">
 						<div id="epg_update_bar_bar" class="progressbar_bar bar1_bar" style="width:2%;"></div>
 					</div>
 					
