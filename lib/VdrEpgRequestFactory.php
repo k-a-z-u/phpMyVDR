@@ -97,8 +97,91 @@
 		
 		}
 	
+		/** get database statement for the given params */
+		private static function getStatement(VdrEpgSqlite $db, VdrEpgRequestFactoryParams $params, $explain = false) {
+			
+			$sql  = '';
+			if ($explain) {$sql .= 'EXPLAIN QUERY PLAN ';}
+			$sql .= 'SELECT s.*,c.name as channelName, c.code as channelCode FROM show s LEFT JOIN channel c on c.idx = s.channelIdx WHERE ';
+			
+			// search string given -> show entries matching the given string within either desc or title)
+			if ($params->getSearchStr())		{$sql .= '(title LIKE :txt OR descLong LIKE :txt) AND ';}
+			
+			// channel given -> only show entries running on this channel
+			if ($params->getChannel())			{$sql .= '(s.channelIdx = :chanIdx) AND ';}
+			
+			
+			// search for shows running within the given time-region?
+			if ($params->getEndTS() && $params->getStartTS()) {
+				$sql .= '(eventTsStart < :tsEnd) AND ((eventTsEnd) > :tsStart) AND '; 
+			}
+			
+			// search for shows that are UP at the given time (e.g. 20:15) ?
+			else if ($params->getStartTS()) {
+				$sql .= '(eventTsStart <= :tsStart) AND ((eventTsEnd) > :tsStart) AND ';
+			}
+			
+			// just ensure the show did not run in the past
+			else {
+				$sql .= '((eventTsEnd) > :ts) AND ';
+			}
+			
+			// search time given (e.g. 20:15) -> show starts before 20:15 AND runs after 20:15
+			// if no search time is given, ensure we do not list shows running in the past
+			//if ($params->getSearchTime())		{$sql .= '(eventTsStart <= :tsStart) AND ';}
+			//else								{$sql .= '((eventTsStart+eventDuration) > :ts) AND ';}
+			
+			// search duration given (needs search time) -> shows running between search time and search time + duration
+			// if no duration is given, list only shows running EXACTLY at the given start search time
+			// (e.g. shows starting before 20:15 and still up after 20:15 -> only one result possible)
+			//if ($params->getEndTS())			{$sql .= '(eventTsStart < :tsEnd) AND ';}
+			//else								{$sql .= '((eventTsStart + eventDuration) > :tsStart) AND ';}
+			
+			// remove trailing AND
+			$sql = substr($sql, 0, strlen($sql)-4);
+			//$sql .= 'LIMIT 100';
+			
+			if ($explain) {echo $sql;}
+			
+			// prepare the statement
+			$stmt = $db->prepare($sql);
+			
+			// bind params
+			$ts = time();
+			$filter = false;
+											{$stmt->bindValue(':ts', $ts, SQLITE3_INTEGER);}
+			if ($params->getStartTS())		{$stmt->bindValue(':tsStart', $params->getStartTS(), SQLITE3_INTEGER);	$filter = true;}
+			if ($params->getEndTS())		{$stmt->bindValue(':tsEnd', $params->getEndTS(), SQLITE3_INTEGER);		$filter = true;}
+			if ($params->getSearchStr())	{$stmt->bindValue(':txt', $params->getSearchStr(), SQLITE3_TEXT);		$filter = true;}
+			if ($params->getChannel())		{$stmt->bindValue(':chanIdx', $params->getChannel(), SQLITE3_INTEGER);	$filter = true;}
+			
+			// done. ensure at least one filter is set.. else the whole DB would be retrieved!
+			if (!$filter) {throw new Exception("no filter active. result would be huge!");}
+			return $stmt;
+			
+		}
+	
 		public static function getByParams(VdrEpgSqlite $db, VdrEpgRequestFactoryParams $params) {
+			
+			/*
+			$stmt = self::getStatement($db, $params, true);
+			$res = $stmt->execute();
+			$arr = $res->fetchArray();
+			echo '<pre>';
+			var_dump($arr);
+			echo '</pre>';
+			*/
+			
+			try {
+				$entries = array();
+				$stmt = self::getStatement($db, $params);
+				$res = $stmt->execute();
+				$entries = new VdrEpgSqliteIterator( $res );
+			} catch (Exception $e) {
+				;
+			}
 		
+			/*
 			// get the timestamp for the starting-time to search for
 			$startTs = $params->getStartTS();
 			
@@ -118,13 +201,13 @@
 				else																				{$entries = $db->getEpgAtTime($startTs, true);}
 				
 			}
+			*/
 			
 			// check if filtering is selected
 			$filtered = array();
 			if ($params->useChannelFilterList()) {
 				
 				$filter = new ChannelFilterUserlist($params->getChannelFilterList());
-			
 				foreach ($entries as $entry) {
 					if (!$filter->matches($entry)) {continue;}
 					$filtered[] = $entry;

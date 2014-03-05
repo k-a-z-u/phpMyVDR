@@ -8,11 +8,11 @@
  */
 class VdrEpgRequestFactoryParams {
 	
-	const GET_BY_NULL = 0;
-	const GET_BY_STRING	= 1;
-	const GET_BY_CHANNEL = 2;
-	const GET_BY_TIME = 4;
-	const GET_BY_DURATION = 8;
+	//const GET_BY_NULL = 0;
+	//const GET_BY_STRING	= 1;
+	//const GET_BY_CHANNEL = 2;
+	//const GET_BY_TIME = 4;
+	//const GET_BY_DURATION = 8;
 	
 	const SEARCH_TIME_NULL = 0;
 	const SEARCH_TIME_NOW = 1;
@@ -24,7 +24,7 @@ class VdrEpgRequestFactoryParams {
 	 * to a real timestamp
 	 */
 	public function getStartTS() {
-		if		(empty($this->searchTime))						{return time();}						// not set? -> now!
+		if		(empty($this->searchTime))						{return;}								// not set? -> now!
 		else if	($this->searchTime == self::SEARCH_TIME_NOW)	{return time();}						// now
 		else if	($this->searchTime == self::SEARCH_TIME_NEXT)	{return time();}						// now + modified search (later)
 		else if	($this->searchTime == '2015')					{return self::getTsToday(20, 15);}		// 20:15 on the current day
@@ -32,9 +32,23 @@ class VdrEpgRequestFactoryParams {
 		else													{return $this->searchTime;}				// is already a valid timestamp
 	}
 	
+	/**
+	 * get ending timestamp (if any)
+	 * is used for region searches:
+	 * 	running between 20:15 and 20:15 + 300 minutes
+	 */
+	public function getEndTS() {
+		if (!$this->searchDuration) {return;}
+		return $this->getStartTS() + $this->searchDuration;
+	}
+	
+	/** get the raw parameter for the search time (see constants above) */
 	public function getSearchTime() {
 		return $this->searchTime;
 	}
+	
+	
+	
 	
 	/**
 	 * modify the search-string (if any):
@@ -52,13 +66,13 @@ class VdrEpgRequestFactoryParams {
 	}
 	
 	/** what is the searching base? a string? a channel? etc.. */
-	public function getBy() {return $this->getBy;}
+	//public function getBy() {return $this->getBy;}
 	
 	/** get the comparator used for sorting */
 	public function getComparator() {return $this->sorting;}
 
 	/** get the channel to search for */
-	public function getChannel() {return $this->channel;}
+	public function getChannel() {return @$this->channel;}
 	
 	/** get the searching duration (e.g. 2 hours (since hh:mm)) */
 	public function getSearchDuration() {return $this->searchDuration;}
@@ -78,29 +92,35 @@ class VdrEpgRequestFactoryParams {
 	public function setSearchString($str) {
 		if (!isset($str)) {return;}
 		$this->searchStr = $str;
-		$this->getBy = self::GET_BY_STRING;
+//		$this->getBy = self::GET_BY_STRING;
 	}
 	
-	/** get all entries by time (e.g. SEARCH_TIME_NOW, SEARCH_TIME_NEXT, '2015') */
+	/** get all entries RUNNING at the current time (e.g. SEARCH_TIME_NOW, SEARCH_TIME_NEXT, '2015') */
 	public function setSearchTime($time) {
 		if (!isset($time)) {return;}
 		$this->searchTime = $time;
-		$this->getBy = self::GET_BY_TIME;
+//		$this->getBy = self::GET_BY_TIME;
+	}
+	
+	/** get all shows running between start and start + seconds */
+	public function setSearchBetweenTime($start, $regionInSeconds) {
+		$this->searchDuration = $regionInSeconds;
+		$this->setSearchTime($start);
 	}
 	
 	/** set the channel to search for */
 	public function setSearchChannel($channelStr) {
 		if (!isset($channelStr)) {return;}
 		$this->channel = $channelStr;
-		$this->getBy = self::GET_BY_CHANNEL;
+//		$this->getBy = self::GET_BY_CHANNEL;
 	}
 	
 	/** set the duration to search for (since starting time. e.g. 20:15 - 22:00) */
-	public function setSearchDuration($duration) {
-		if (!isset($duration)) {return;}
-		$this->searchDuration = $duration;
-		$this->getBy = self::GET_BY_DURATION;
-	}
+//	public function setSearchDuration($duration) {
+//		if (!isset($duration)) {return;}
+//		$this->searchDuration = $duration;
+//		$this->getBy = self::GET_BY_DURATION;
+//	}
 	
 	/** set the channel-filter-list to use */
 	public function setChannelFilterList($list) {
@@ -135,20 +155,20 @@ class VdrEpgRequestFactoryParams {
 	/** select the starting time for the search (e.g. 'now', 'next', '2015', ...) */
 	private $searchTime = self::SEARCH_TIME_NULL;
 	
+	/** search for a given time region? (the regions start is given by $searchTime) and ends with $searchTime + $searchDuration */
+	private $searchDuration = 0;
+	
 	/** search for a specific textual content */
 	private $searchString = null;
 	
 	/** set the channel to search for */
 	private $searchChannel = null;
-	
-	/** search for a given time region? */
-	private $searchDuration = 0;
 
 	/** use a channel filter list? */
 	private $channelFilerList = null;
 	
 	/** searching base */
-	private $getBy = self::GET_BY_NULL;
+	//private $getBy = self::GET_BY_NULL;
 	
 }
 

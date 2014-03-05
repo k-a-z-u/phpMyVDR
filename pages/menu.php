@@ -21,7 +21,6 @@
 			$html .= $this->getEntry(Menu::$tplEntry, LANG_MENU_START, 'Start');
 			$html .= $this->getSub('EPG');
 			$html .= $this->getEntry(Menu::$tplEntry, LANG_MENU_EPG_NOW, 'EPG');
-			$html .= $this->getEntry(Menu::$tplEntry, LANG_MENU_EPG_BY_PROGRAM, 'EPG', '&by_channel=1');
 			$html .= $this->getEntry(Menu::$tplEntry, LANG_MENU_EPG_TIMELINE, 'EPGTimeline');
 			$html .= $this->getEntry(Menu::$tplEntry, LANG_MENU_TIMER, 'Timer');
 			

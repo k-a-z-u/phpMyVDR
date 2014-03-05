@@ -33,7 +33,7 @@
 	define('LANG_MENU_HEADER', 'MENU');
 	define('LANG_MENU_START', 'Startpage');
 	define('LANG_MENU_EPG_NOW', 'On Air');
-	define('LANG_MENU_EPG_BY_PROGRAM', 'By Program');
+	//define('LANG_MENU_EPG_BY_PROGRAM', 'By Program');
 	define('LANG_MENU_EPG_TIMELINE', 'Timeline');
 	define('LANG_MENU_EPG_UPDATE', 'EPG-Update');
 	define('LANG_MENU_TIMER', 'Timer');

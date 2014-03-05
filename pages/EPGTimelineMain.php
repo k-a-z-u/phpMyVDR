@@ -39,8 +39,9 @@
 			// get entries
 			$db = new VdrEpgSqlite(SQLITE_EPG_FILE);
 			$params = new VdrEpgRequestFactoryParams();
-			$params->setSearchTime( time() - $this->pastTime );
-			$params->setSearchDuration( $this->totalTime );
+			//$params->setSearchTime( time() - $this->pastTime );
+			//$params->setSearchDuration( $this->totalTime );
+			$params->setSearchBetweenTime( time() - $this->pastTime, $this->totalTime );
 			$params->sortBy( VdrEpgRequestFactory::SORT_BY_CHAN_NAME );
 			$entries = VdrEpgRequestFactory::getByParams($db, $params);
 			

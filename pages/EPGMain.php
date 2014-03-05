@@ -119,21 +119,24 @@
 			$this->tplSearch->setUnsafe('CMB_USERFILTER', Combos::getUserChannelFilter('channelfilter', $this->channelFilter));
 			
 			// check what to enable
-			if (isset($this->searchStr)) {
-				$this->tplSearch->set('EN_OPT_SORT', true);
-				$this->tplSearch->set('EN_OPT_CHANNELFILTER', true);
-				$this->tplSearch->set('SEARCH_TEXT', $this->searchStr);
-			} if (isset($this->byChannel)) {
-				$this->tplSearch->set('EN_OPT_SEARCH', false);
-				$this->tplSearch->set('EN_OPT_BY_CHANNEL', true);
-				$this->tplSearch->setUnsafe('CMB_CHANNEL', Combos::getChannels('by_channel', $this->byChannel));
-			} else {
+			//~ if (isset($this->searchStr)) {
+				//~ $this->tplSearch->set('EN_OPT_SORT', true);
+				//~ $this->tplSearch->set('EN_OPT_CHANNELFILTER', true);
+				//~ $this->tplSearch->set('SEARCH_TEXT', $this->searchStr);
+			//~ } if (isset($this->byChannel)) {
+				//~ $this->tplSearch->set('EN_OPT_SEARCH', false);
+				//~ $this->tplSearch->set('EN_OPT_BY_CHANNEL', true);
+				//~ $this->tplSearch->setUnsafe('CMB_CHANNEL', Combos::getChannels('by_channel', $this->byChannel));
+			//~ } else {
 				$this->tplSearch->set('EN_OPT_SEARCH', true);
 				$this->tplSearch->set('EN_OPT_TIME', true);
 				$this->tplSearch->set('EN_OPT_SORT', true);
 				$this->tplSearch->set('EN_OPT_CHANNELFILTER', true);
+				$this->tplSearch->set('EN_OPT_BY_CHANNEL', true);
+				$this->tplSearch->set('SEARCH_TEXT', $this->searchStr);
 				$this->tplSearch->setUnsafe('CMB_TIME', Combos::getEpgTime('search_time', $this->searchTime));
-			}
+				$this->tplSearch->setUnsafe('CMB_CHANNEL', Combos::getChannels('by_channel', $this->byChannel));
+			//~ }
 			
 			// rss url
 			$this->tplSearch->set('URL_RSS', $this->getRssLink());

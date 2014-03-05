@@ -15,8 +15,9 @@
 		/** get the EPG-time combo */
 		public static function getEpgTime($id, $selected) {
 			$keyVal = array();
+			$keyVal[''] = '';
 			$keyVal[VdrEpgRequestFactoryParams::SEARCH_TIME_NOW] = LANG_EPG_OPTS_TIME_NOW;
-			$keyVal[VdrEpgRequestFactoryParams::SEARCH_TIME_NEXT] = LANG_EPG_OPTS_TIME_NEXT;
+			//$keyVal[VdrEpgRequestFactoryParams::SEARCH_TIME_NEXT] = LANG_EPG_OPTS_TIME_NEXT;
 			$keyVal['2015'] = LANG_EPG_OPTS_TIME_2015;
 			$keyVal['2200'] = LANG_EPG_OPTS_TIME_2200;
 			return HTML::getCombo($keyVal, $id, $selected);
@@ -25,6 +26,7 @@
 		/** get all channels as combo box */
 		public static function getChannels($id, $selected) {
 			$keyVal = array();
+			$keyVal[''] = '';
 			$channels = Factory::getSqlite()->getAllChannels();
 			foreach ($channels as $channel) {
 				$keyVal[$channel->getIndex()] = $channel->getName();

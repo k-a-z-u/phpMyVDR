@@ -7,15 +7,18 @@
 		/* attributes */
 		private $eventID;			// uniqute event ID
 		private $startTS;			// start timestamp
+		private $endTS;				// end timestamp
 		private $duration;			// duration in seconds
 		private $tableID;			// the table ID
 		private $version;			// the version 
 			
 		/** create */
-		public function __construct($eventID, $startTS, $duration, $tableID = null, $version = null) {
+		public function __construct($eventID, $startTS, $endTS, $tableID = null, $version = null) {
 			$this->eventID = (int) $eventID;
 			$this->startTS = (int) $startTS;
-			$this->duration = (int) $duration;
+			$this->endTS = (int) $endTS;
+			if ($this->endTS < $this->startTS) {throw new Exception("invalid end timestamp given");}
+			$this->duration = $this->endTS - $this->startTS;
 			$this->tableID = $tableID;
 			$this->version = $version;
 		}
@@ -27,7 +30,7 @@
 		public function getTsStart() {return $this->startTS;}
 		
 		/** get stop timestamp */
-		public function getTsEnd() {return $this->startTS + $this->duration;}
+		public function getTsEnd() {return $this->endTS;}
 	
 		/** get the duration in seconds */
 		public function getDuration() {return $this->duration;}

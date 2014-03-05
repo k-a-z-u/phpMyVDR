@@ -27,7 +27,7 @@
 			$entry->channel = new VdrChannel($attr[0], $attr[1]);
 		
 			$attr = explode(' ', $event, 5);
-			$entry->event = new VdrEpgEvent($attr[0], $attr[1], $attr[2], $attr[3], $attr[4]);
+			$entry->event = new VdrEpgEvent($attr[0], $attr[1], $attr[1]+$attr[2], $attr[3], $attr[4]);
 			
 			$numStreams = count($streams);
 			for ($i = 0; $i < $numStreams; ++$i) {
