@@ -1,6 +1,9 @@
 <?php
 
-	/** connect to VDR using SVDRP */
+	/**
+	 * this class handles a direct connection the VDR
+	 * server using its SVDRP protocol.
+	 */
 	class VdrSvdrpConnection {
 	
 		/** attributes */
@@ -63,9 +66,11 @@
 		/** request response to one command */
 		public function request($cmd) {
 		
-			// send command
+			// send command and ensure it is converted as UTF8
+			// (however: all data SHOULD already use UTF8 as charset...)
 			$cmd .= "\r\n";
-			$cmd = utf8_encode($cmd);
+			$cmd = Charset::toUTF8($cmd);
+			
 			//socket_write($this->sock, $cmd, strlen($cmd));
 			fputs($this->sock, $cmd, strlen($cmd));
 		

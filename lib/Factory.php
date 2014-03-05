@@ -1,5 +1,11 @@
 <?php
 
+	/**
+	 * this class contains all sub-systems needed for creating
+	 * the final output. (e.g. database for EPG data, connection
+	 * to the VDR server, etc).
+	 * 
+	 */
 	class Factory {
 		
 		/** attributes */

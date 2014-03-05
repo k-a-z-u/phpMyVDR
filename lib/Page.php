@@ -1,7 +1,8 @@
 <?php
 	
 	/**
-	 * represents the whole page
+	 * this class represents the whole page (sent to the client)
+	 * by loading (and filling) the corresponding template.
 	 */
 	class Page {
 		
@@ -49,7 +50,7 @@
 			$this->tpl->setUnsafe('SCRIPTS', $this->scripts);
 			$this->tpl->setUnsafe('STATUSBAR', $this->statusBar->getHTML());
 			
-			$this->tpl->set('CHARSET', 'iso-8859-1');
+			$this->tpl->set('CHARSET', 'utf-8');
 			$this->tpl->set('EXEC_TIME', round( (microtime(true) - $this->startTS) * 1000, 1) );
 			
 			return $this->tpl->get();

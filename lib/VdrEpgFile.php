@@ -1,8 +1,14 @@
 <?php
 
 	/**
-	 * instead of SVDRP this class directly accesses the epg.data
-	 * for full featured data retreival
+	 * this class provides access to VDR's "epg.data" file which contains
+	 * all retrieved EPG entries.
+	 * 
+	 * to enhance the system's performance and to provide fast searches,
+	 * the "epg.data" is just parsed and inserted into a (sqlite) database.
+	 * 
+	 * the "epg.data" should use UTF-8 as character encoding.
+	 * 
 	 */
 	class VdrEpgFile {
 	
@@ -51,17 +57,24 @@
 					return null;
 				}
 								
-				// check what this line means
+				// check the data-type for this line
+				// (each line is preceded by a character indicating its 'type')
 				$type = $line{0};
 				
 				if ($type == 'C') {
-						$this->curChannelStr = $line;
+					// channel info (all following entries belong to this channel!)
+					$this->curChannelStr = $line;
+					
 				} else if ($type == 'e') {
-						return VdrEpgParser::parseOneEntryString($this->curChannelStr . $buf . 'e');
+					// EPG entry (for the current channel) complete
+					// the buffer $buf holds the whole data for this entry
+					return VdrEpgParser::parseOneEntryString($this->curChannelStr . $buf . 'e');
+				
 				} else {
-						$buf .= $line;
+					$buf .= $line;
+				
 				}
-								
+				
 			
 			}
 		

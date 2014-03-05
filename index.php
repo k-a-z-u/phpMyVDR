@@ -1,11 +1,14 @@
 <?php
 	
+	// use gzip compression
 	ob_start('ob_gzhandler');
 	
-	header('Content-Type: text/html; charset=iso-8859-1');
+	// set content-type and charset
+	//header("Content-Type: text/html; charset=utf-8");
 	
 	$start = microtime(true);
 	
+	// needed includes
 	include "settings.php";
 	include "pages/menu.php";
 	include "lib/PluginSystem.php";
@@ -29,11 +32,13 @@
 		<link href="./rss.php" rel="alternate" type="application/rss+xml" title="EPG RSS" />
 	';
 	
+	// add necessary scripts and stylesheets
 	Factory::getPage()->addCSS('{PATH}/style.css');
 	Factory::getPage()->addScript('lib/tooltip/tooltip.js');
 	Factory::getPage()->addScript('functions.js');
 	Factory::getPage()->addScript('timeline.js');
 	
+	// add some elements to the statusbar
 	Factory::getPage()->getStatusBar()->addLeft( System::getHostname() );
 	Factory::getPage()->getStatusBar()->addRight( MyDate::getDateTime(time()) );
 	
@@ -45,13 +50,14 @@
 	// create the main menu
 	Factory::getPage()->setMenu(new Menu());
 	
-	
 	// create output and flush
 	echo Factory::getPage()->getHTML();
 	ob_end_flush();
 	
+	
+	
 	function getContent($className) {
-		$file = 'pages/'.$className.'.php';
+		$file = 'pages/' . addslashes($className) . '.php';
 		if (!file_exists($file)) {return;}
 		include $file;
 		$cls = new $className();

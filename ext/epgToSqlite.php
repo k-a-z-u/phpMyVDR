@@ -95,9 +95,13 @@
 			
 			}
 			
+			// finalize
+			$db->endTransaction();
+			
 			// remove old shows and cleanup
 			$db->removeOldEpgEntries();
-			$db->endTransaction();
+			
+			// done
 			$db->close();
 			
 			
