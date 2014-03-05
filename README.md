@@ -7,6 +7,9 @@ I mainly work on gentoo and use VDR on a dedicated server (without monitor) and 
 
 The current version allows searching for shows, adding and modifying timers, show search results as RSS and some more features. While there is still a lot of work to do, also on the security aspect (searching for possible injections), the interface is small and easy to set up.
 
+# Screenshots
+
+![screenshot](http://i.imgur.com/ZiyawbO.jpg)
 
 # What you need
 * **A webserver** (like apache2)
