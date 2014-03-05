@@ -5,13 +5,17 @@
 </div>
 
 <script type="text/javascript">
-	var tl = new Timeline();
-	tl.setSize(900, 0);
-	tl.setDisplayTime(1);
-	tl.setTotalTime(3);
-	var str = Helper.query('./ext/timer_timeline.php?days=3');
-	tl.parse(str);
-	tl.displayTo('timelineDiv');
+	setTimeout(
+		function(){
+			var tl = new Timeline();
+			tl.setSize(900, 0);
+			tl.setDisplayTime(1);
+			tl.setTotalTime(3);
+			var str = Helper.query('./ext/timer_timeline.php?days=3');
+			tl.parse(str);
+			tl.displayTo('timelineDiv');
+		},0
+	);
 </script>
 
 <br/>

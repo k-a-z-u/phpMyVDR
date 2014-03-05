@@ -42,7 +42,8 @@
 			$tplDay = new Template('epg_now_day');
 			
 			// sort the entries using the selected comparator
-			$entries = VdrEpgRequestFactory::get($this->db, $_POST);
+			// (filter may be set via GET or via POST -> $_REQUEST, maybe there is a better solution?)
+			$entries = VdrEpgRequestFactory::get($this->db, $_REQUEST);
 			
 			// map each entry to the template 
 			$data = '';

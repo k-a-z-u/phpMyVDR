@@ -27,8 +27,10 @@ class VdrEpgRequestFactoryParams {
 		if		(empty($this->searchTime))						{return;}								// not set? -> now!
 		else if	($this->searchTime == self::SEARCH_TIME_NOW)	{return time();}						// now
 		else if	($this->searchTime == self::SEARCH_TIME_NEXT)	{return time();}						// now + modified search (later)
-		else if	($this->searchTime == '2015')					{return self::getTsToday(20, 15);}		// 20:15 on the current day
-		else if	($this->searchTime == '2200')					{return self::getTsToday(22, 00);}		// 22:00 on the current day
+		else if ( strlen($this->searchTime) == 4)				{										// hh:mm on the current day
+			$hour = substr($this->searchTime,0,2);
+			$min = substr($this->searchTime,2,2);
+			return self::getTsToday($hour, $min);}
 		else													{return $this->searchTime;}				// is already a valid timestamp
 	}
 	
@@ -47,7 +49,10 @@ class VdrEpgRequestFactoryParams {
 		return $this->searchTime;
 	}
 	
-	
+	/** get the requested event id (epg event -> show) if any */
+	public function getEventID() {
+		return $this->eventID;
+	}
 	
 	
 	/**
@@ -80,6 +85,8 @@ class VdrEpgRequestFactoryParams {
 	/** get the requested channel filter list (if any) */
 	public function getChannelFilterList() {return $this->channelFilerList;}
 	
+	/** set the show (epg event, database ID) to display */
+	public function setEventID($eventID) {$this->eventID = $eventID;}
 	
 	
 	/** use a channel-filter-list or not? */
@@ -138,12 +145,18 @@ class VdrEpgRequestFactoryParams {
 	
 	/** get hour:minute on the current day as timestamp */
 	private static function getTsToday($hour, $minute) {
+		
 		$second = 0;
 		$ts = time();
 		$month = date('m', $ts);
 		$day = date('d', $ts);
 		$year = date('Y', $ts);
-		return mktime($hour, $minute, $second, $month, $day, $year);
+		$ts = mktime($hour, $minute, $second, $month, $day, $year);
+		
+		// is this time in the past? -> next day
+		if ($ts < time()) {$ts += 86400;}
+		return $ts;
+		
 	}
 	
 	
@@ -166,6 +179,9 @@ class VdrEpgRequestFactoryParams {
 
 	/** use a channel filter list? */
 	private $channelFilerList = null;
+	
+	/** directly select a show (epg event) by its database ID */
+	private $eventID = null;
 	
 	/** searching base */
 	//private $getBy = self::GET_BY_NULL;

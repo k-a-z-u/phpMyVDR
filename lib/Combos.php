@@ -18,8 +18,18 @@
 			$keyVal[''] = '';
 			$keyVal[VdrEpgRequestFactoryParams::SEARCH_TIME_NOW] = LANG_EPG_OPTS_TIME_NOW;
 			//$keyVal[VdrEpgRequestFactoryParams::SEARCH_TIME_NEXT] = LANG_EPG_OPTS_TIME_NEXT;
-			$keyVal['2015'] = LANG_EPG_OPTS_TIME_2015;
-			$keyVal['2200'] = LANG_EPG_OPTS_TIME_2200;
+			$keyVal['0000'] = '00:00';
+			$keyVal['0200'] = '02:00';
+			$keyVal['0400'] = '04:00';
+			$keyVal['0600'] = '06:00';
+			$keyVal['0800'] = '08:00';
+			$keyVal['1000'] = '10:00';
+			$keyVal['1200'] = '12:00';
+			$keyVal['1400'] = '14:00';
+			$keyVal['1600'] = '16:00';
+			$keyVal['1800'] = '18:00';
+			$keyVal['2015'] = '20:15';
+			$keyVal['2200'] = '22:00';
 			return HTML::getCombo($keyVal, $id, $selected);
 		}
 	

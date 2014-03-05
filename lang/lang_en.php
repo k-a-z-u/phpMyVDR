@@ -54,6 +54,8 @@
 	define('LANG_CHANNELS_CODE', 'code');
 	define('LANG_CHANNELS_MSG_DELETED', 'the selected channel has been successfully deleted\n\nYou must now trigger an EPG-update to commit the changed channel- and EPG-data to the internal database!');
 	
+	/* timeline */
+	define('LANG_TIMELINE_TIME', 'time');
 	
 	/* svdrp */
 	define('LANG_SVDRP_REQUEST_HEADER', 'send a SVDRP-request');
@@ -67,14 +69,14 @@
 	define('LANG_EPG_OPTS_TIME', 'time');
 	define('LANG_EPG_OPTS_TIME_NOW', 'now');
 	define('LANG_EPG_OPTS_TIME_NEXT', 'next');
-	define('LANG_EPG_OPTS_TIME_2015', '20:15');
-	define('LANG_EPG_OPTS_TIME_2200', '22:00');
+	//define('LANG_EPG_OPTS_TIME_2015', '20:15');
+	//define('LANG_EPG_OPTS_TIME_2200', '22:00');
 	define('LANG_EPG_OPTS_SORT', 'sort');
 	define('LANG_EPG_OPTS_SORT_BY_CHANNEL', 'by channel name');
 	define('LANG_EPG_OPTS_SORT_BY_DAY_AND_CHANNEL', 'by day and channel name');
 	define('LANG_EPG_OPTS_SORT_BY_TIME', 'by time');
 	define('LANG_EPG_OPTS_SORT_BY_DURATION', 'by duration');
-	define('LANG_EPG_OPTS_USER_CHANNELFILTER', 'channel-filter');
+	define('LANG_EPG_OPTS_USER_CHANNELFILTER', 'channellist');
 	define('LANG_EPG_OPTS_APPLY', 'apply');
 	define('LANG_EPG_OPTS_SEARCH', 'search');
 	define('LANG_EPG_OPTS_GET_RSS', 'get an RSS-feed for the current view');

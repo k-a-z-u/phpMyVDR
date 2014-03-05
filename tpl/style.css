@@ -21,7 +21,7 @@ html {
 .epg_day							{border-style: solid; border-width: 14px 14px 1px 14px; border-image: url(boxUpperEnd.png) fill 14 14 1 14 repeat stretch; -o-border-image: url(boxUpperEnd.png) 14 14 1 14 repeat stretch; -webkit-border-image: url(boxUpperEnd.png) 14 14 1 14 repeat stretch;}
 
 .box .content						{border-style: solid; border-width: 1px 9px 1px 9px; border-image: url(boxMain.png) fill 1 9 1 9 repeat stretch; -o-border-image: url(boxMain.png) 1 9 1 9 repeat stretch; -webkit-border-image: url(boxMain.png) 1 9 1 9 repeat stretch;}
-.epg_entry_content, #title			{border-style: solid; border-width: 1px 9px 9px 9px; border-image: url(boxMainEnd.png) fill 1 9 9 9 repeat stretch; -o-border-image: url(boxMainEnd.png) 1 9 9 9 repeat stretch; -webkit-border-image: url(boxMainEnd.png) 1 9 9 9 repeat stretch;}
+.epg_entry_content, #title			{border-style: solid; border-width: 1px 12px 9px 12px; border-image: url(boxMainEnd.png) fill 1 12 9 12 repeat stretch; -o-border-image: url(boxMainEnd.png) 1 12 9 12 repeat stretch; -webkit-border-image: url(boxMainEnd.png) 1 12 9 12 repeat stretch;}
 
 /** ------------------------------ PAGE LAYOUT ------------------------------ */
 
@@ -32,7 +32,29 @@ html {
 	font-style:italic;
 	border-left: none;
 	border-right: none;
+	position:relative;
+	z-index:2;
 }
+
+.dropout {
+	border-width: 1px 14px 14px 14px;
+	border-style: solid; border-image: url(boxLower.png) fill 1 14 14 14 repeat stretch;
+	-o-border-image: url(boxLower.png) 1 14 14 14 repeat stretch;
+	-webkit-border-image: url(boxLower.png) 1 14 14 14 repeat stretch;
+	padding: 5px 0px 0px 0px;
+	position:fixed;
+	top:25px;
+	z-index:1;
+	left:200px;
+}
+.dropout table						{margin:-3px;}
+.dropout table td					{padding:1px;}
+.dropout table td:nth-child(2n+1)	{font-weight: bold;}
+.dropout table td:nth-child(2n+0)	{padding-right:10px;}
+.dropout select						{max-width:120px;}
+.dropout input						{max-width:120px;}
+
+.rssLink		{float:right; margin-top:3px; margin-right:1px;}
 
 #title_content {
 	float:right;
@@ -146,6 +168,8 @@ input[type=button], input[type=submit] {
 .epg_timeline_entry			{border:1px outset #BBB; border-radius:4px; display:inline-block; box-sizing:border-box; -moz-box-sizing:border-box; white-space: nowrap; overflow: hidden; padding:3px; font-size:10px; color:#000; background: linear-gradient(to bottom, #FFFFFF, #DDDDDD); background: -o-linear-gradient(top, #FFFFFF, #DDDDDD); background: -moz-linear-gradient(top, #FFFFFF, #DDDDDD); background-image: -webkit-gradient(linear, left top, left bottom, from(#FFFFFF), to(#DDDDDD));}
 .epg_timeline_entry_act		{border:1px outset #BBB; border-radius:4px; display:inline-block; box-sizing:border-box; -moz-box-sizing:border-box; white-space: nowrap; overflow: hidden; padding:3px; font-size:10px; color:#000; background: linear-gradient(to bottom, #AAFFAA, #88CC88); background: -o-linear-gradient(top, #AAFFAA, #88CC88); background: -moz-linear-gradient(top, #AAFFAA, #88CC88); background-image: -webkit-gradient(linear, left top, left bottom, from(#AAFFAA), to(#88CC88));}
 .epg_timeline_cur_time		{width:0px; border-left:1px solid #CCC; border-right:1px solid #444; height:100%; position:fixed;}
+.epg_timeline_entry a		{color:#000;}
+.epg_timeline_entry_act a	{color:#000;}
 
 .epg_schedule				{position:relative; }
 .epg_schedule_channel		{position:absolute; box-sizing:border-box; -moz-box-sizing:border-box; width:100%; padding-top:5px; padding-bottom:7px; background: linear-gradient(to bottom, #EEE, #CCC); background: -o-linear-gradient(top, #EEE, #CCC); background: -moz-linear-gradient(top, #EEE, #CCC); color:#000; font-style:italic; padding-left:5px;}
@@ -161,7 +185,7 @@ input[type=button], input[type=submit] {
 
 .channels_tbl			{border-collapse : collapse;}
 .channels_tbl th		{padding:5px; border-bottom:1px solid #CCC; background-color:#AAA; text-align:left;}
-.channels_tbl td		{padding:5px;}
+.channels_tbl td		{padding:0px 5px;}
 .channels_tbl tr:hover	{background-color:#999;}
 
 
@@ -185,7 +209,7 @@ input[type=button], input[type=submit] {
 
 
 /** ------------------------------ TOOLTIP ------------------------------ */
-.tooltip				{position:absolute; border:1px outset #666; background-color:#FFFFFF; padding:3px; border-radius:5px; background: linear-gradient(to bottom, #DDDDFF, #8888BB); background: -o-linear-gradient(top, #DDDDFF, #8888BB); background: -moz-linear-gradient(top, #DDDDFF, #8888BB); box-shadow: 1px 1px 5px #444; max-width:450px;}
+.tooltip				{position:absolute; z-index:255; border:1px outset #666; background-color:#FFFFFF; padding:3px; border-radius:5px; background: linear-gradient(to bottom, #DDDDFF, #8888BB); background: -o-linear-gradient(top, #DDDDFF, #8888BB); background: -moz-linear-gradient(top, #DDDDFF, #8888BB); box-shadow: 1px 1px 5px #444; max-width:450px;}
 
 
 /** ------------------------------ DASHBOARD ------------------------------ */

@@ -92,6 +92,7 @@
 			if (@$attrs['search_text'])		{$params->setSearchString( $attrs['search_text'] );}
 			if (@$attrs['channelfilter'])	{$params->setChannelFilterList( $attrs['channelfilter'] );}
 			if (@$attrs['sort_by'])			{$params->sortBy( $attrs['sort_by'] );}
+			if (@$attrs['event_id'])			{$params->setEventID( $attrs['event_id'] );}
 			
 			return self::getByParams($db, $params);
 		
@@ -110,6 +111,8 @@
 			// channel given -> only show entries running on this channel
 			if ($params->getChannel())			{$sql .= '(s.channelIdx = :chanIdx) AND ';}
 			
+			// select show directly by database event ID
+			if ($params->getEventID())			{$sql .= '(s.id = :eventID) AND ';}
 			
 			// search for shows running within the given time-region?
 			if ($params->getEndTS() && $params->getStartTS()) {
@@ -152,6 +155,7 @@
 											{$stmt->bindValue(':ts', $ts, SQLITE3_INTEGER);}
 			if ($params->getStartTS())		{$stmt->bindValue(':tsStart', $params->getStartTS(), SQLITE3_INTEGER);	$filter = true;}
 			if ($params->getEndTS())		{$stmt->bindValue(':tsEnd', $params->getEndTS(), SQLITE3_INTEGER);		$filter = true;}
+			if ($params->getEventID())		{$stmt->bindValue(':eventID', $params->getEventID(), SQLITE3_INTEGER);	$filter = true;}
 			if ($params->getSearchStr())	{$stmt->bindValue(':txt', $params->getSearchStr(), SQLITE3_TEXT);		$filter = true;}
 			if ($params->getChannel())		{$stmt->bindValue(':chanIdx', $params->getChannel(), SQLITE3_INTEGER);	$filter = true;}
 			

@@ -15,6 +15,7 @@
 		private $curData = '';
 		private $tplPage;
 		private $tplEntry;
+		private $searchTime;
 		
 		/**
 		 * ctor
@@ -30,6 +31,11 @@
 			$this->tplPage = new Template('timeline_page');
 			$this->tplEntry = new Template('timeline_entry');
 			
+			// attach controls
+			$this->searchTime = @$_POST['search_time'];
+			if ( empty($this->searchTime) ) {$this->searchTime = VdrEpgRequestFactoryParams::SEARCH_TIME_NOW;}
+			$this->tplPage->setUnsafe('CMB_TIME', Combos::getEpgTime('search_time', $this->searchTime));
+			
 		}
 	
 		/** get HTML output */
@@ -41,7 +47,11 @@
 			$params = new VdrEpgRequestFactoryParams();
 			//$params->setSearchTime( time() - $this->pastTime );
 			//$params->setSearchDuration( $this->totalTime );
-			$params->setSearchBetweenTime( time() - $this->pastTime, $this->totalTime );
+			
+			// use either "now" minus a few minutes (currenlty running stuff)
+			// or use the given time in format "hhmm" (e.g. 2015 for 20:15)
+			$time = (strlen($this->searchTime) == 4) ? ($this->searchTime) : ( time() - $this->pastTime );
+			$params->setSearchBetweenTime( $time, $this->totalTime );
 			$params->sortBy( VdrEpgRequestFactory::SORT_BY_CHAN_NAME );
 			$entries = VdrEpgRequestFactory::getByParams($db, $params);
 			
@@ -58,6 +68,7 @@
 			foreach ($entries as $entry) {
 			
 				// get attributes
+				$eventID = $entry->getDbId();
 				$chan = $entry->getChannel();
 				$startTs = $entry->getEvent()->getTsStart();
 				$endTs = $entry->getEvent()->getTsEnd();
@@ -93,7 +104,9 @@
 				// append entry to current row
 				$infoBox = $entry->getInfoBox();
 				$class = ($isRunning) ? ('epg_timeline_entry_act') : ('epg_timeline_entry');
-				$this->curData .= '<div class="'.$class.'" title="'.$infoBox.'" style="width:'.$p1.'%;">'.$title.'</div>';
+				$this->curData .= '<div class="'.$class.'" title="'.$infoBox.'" style="width:'.$p1.'%;">';
+				$this->curData .= '<a href="?page=EPG&amp;event_id='.$eventID.'">' . $title . '</a>';
+				$this->curData .= '</div>';
 				
 			}
 			
