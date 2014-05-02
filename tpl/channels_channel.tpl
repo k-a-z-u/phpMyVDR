@@ -1,5 +1,7 @@
 <tr>
-	<td style="height:25px;">{NAME}</td>
+	<td style="height:25px;">
+		<a href='{URL_WATCH}'>{NAME}</a>
+	</td>
 	<td>{INDEX}</td>
 	<td>{CODE}</td>
 	<td>

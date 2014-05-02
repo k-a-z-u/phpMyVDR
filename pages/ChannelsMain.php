@@ -35,6 +35,7 @@
 			foreach ($chans as $channel) {
 				
 				$tplChan->set('URL_DELETE', '?page=Channels&index='.$channel->getIndex());
+				$tplChan->set('URL_WATCH', "ext/m3u.php?channel={$channel->getCode()}");
 				$tplChan->set('NAME', $channel->getName());
 				$tplChan->set('INDEX', $channel->getIndex());
 				$tplChan->set('CODE', $channel->getCode());
